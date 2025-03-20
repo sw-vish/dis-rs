@@ -18,7 +18,8 @@ pub const BASE_EVENT_REPORT_BODY_LENGTH: u16 = 28;
 ///
 /// 7.5.12 Event Report PDU
 #[derive(Clone, Debug, Default, PartialEq)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize, ts_rs::TS))]
+#[cfg_attr(feature = "serde", ts(export))]
 pub struct EventReport {
     pub originating_id: EntityId,
     pub receiving_id: EntityId,

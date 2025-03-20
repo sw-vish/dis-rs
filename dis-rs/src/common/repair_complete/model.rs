@@ -11,7 +11,8 @@ const REPAIR_COMPLETE_BASE_BODY_LENGTH: u16 = 16;
 ///
 /// 7.4.6 Repair Complete PDU
 #[derive(Clone, Debug, Default, PartialEq)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize, ts_rs::TS))]
+#[cfg_attr(feature = "serde", ts(export))]
 pub struct RepairComplete {
     pub receiving_id: EntityId,
     pub repairing_id: EntityId,

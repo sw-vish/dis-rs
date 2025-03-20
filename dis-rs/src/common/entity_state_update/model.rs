@@ -15,7 +15,8 @@ const BASE_ENTITY_STATE_UPDATE_BODY_LENGTH: u16 = 60;
 ///
 /// 7.2.5 Entity State Update PDU
 #[derive(Clone, Debug, Default, PartialEq)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize, ts_rs::TS))]
+#[cfg_attr(feature = "serde", ts(export))]
 pub struct EntityStateUpdate {
     pub entity_id: EntityId,
     pub entity_linear_velocity: VectorF32,

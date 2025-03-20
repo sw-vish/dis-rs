@@ -8,7 +8,8 @@ use serde::{Deserialize, Serialize};
 const COLLISION_BODY_LENGTH: u16 = 48;
 
 #[derive(Clone, Debug, Default, PartialEq)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize, ts_rs::TS))]
+#[cfg_attr(feature = "serde", ts(export))]
 pub struct Collision {
     pub issuing_entity_id: EntityId,
     pub colliding_entity_id: EntityId,

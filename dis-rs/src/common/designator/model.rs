@@ -12,7 +12,8 @@ pub const DESIGNATOR_BODY_LENGTH: u16 = 76;
 ///
 /// 7.6.3 Designator PDU
 #[derive(Clone, Debug, Default, PartialEq)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize, ts_rs::TS))]
+#[cfg_attr(feature = "serde", ts(export))]
 pub struct Designator {
     pub designating_entity_id: EntityId,
     pub system_name: DesignatorSystemName,

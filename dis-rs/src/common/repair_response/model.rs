@@ -11,7 +11,8 @@ const REPAIR_RESPONSE_BASE_BODY_LENGTH: u16 = 16;
 ///
 /// 7.4.7 Repair Response PDU
 #[derive(Clone, Debug, Default, PartialEq)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize, ts_rs::TS))]
+#[cfg_attr(feature = "serde", ts(export))]
 pub struct RepairResponse {
     pub receiving_id: EntityId,
     pub repairing_id: EntityId,

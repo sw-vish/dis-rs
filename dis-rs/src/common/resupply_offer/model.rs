@@ -12,7 +12,8 @@ const RESUPPLY_OFFER_BASE_BODY_LENGTH: u16 = 16;
 ///
 /// 7.4.3 Resupply Offer PDU
 #[derive(Clone, Debug, Default, PartialEq)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize, ts_rs::TS))]
+#[cfg_attr(feature = "serde", ts(export))]
 pub struct ResupplyOffer {
     pub requesting_id: EntityId,
     pub servicing_id: EntityId,

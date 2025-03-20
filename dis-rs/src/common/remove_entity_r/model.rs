@@ -11,7 +11,8 @@ const REMOVE_ENTITY_R_BODY_LENGTH: u16 = 20;
 ///
 /// 7.11.3 Remove Entity-R PDU
 #[derive(Clone, Debug, Default, PartialEq)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize, ts_rs::TS))]
+#[cfg_attr(feature = "serde", ts(export))]
 pub struct RemoveEntityR {
     pub originating_id: EntityId,
     pub receiving_id: EntityId,

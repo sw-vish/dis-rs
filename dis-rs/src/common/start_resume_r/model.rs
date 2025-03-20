@@ -11,7 +11,8 @@ const START_RESUME_R_BODY_LENGTH: u16 = 36;
 ///
 /// 7.11.4 Start/Resume-R PDU
 #[derive(Clone, Debug, Default, PartialEq)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize, ts_rs::TS))]
+#[cfg_attr(feature = "serde", ts(export))]
 pub struct StartResumeR {
     pub originating_id: EntityId,
     pub receiving_id: EntityId,

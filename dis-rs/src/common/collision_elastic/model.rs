@@ -11,7 +11,8 @@ const COLLISION_ELASTIC_BODY_LENGTH: u16 = 88;
 ///
 /// 7.2.4 Collision-Elastic PDU
 #[derive(Clone, Debug, Default, PartialEq)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize, ts_rs::TS))]
+#[cfg_attr(feature = "serde", ts(export))]
 pub struct CollisionElastic {
     pub issuing_entity_id: EntityId,
     pub colliding_entity_id: EntityId,

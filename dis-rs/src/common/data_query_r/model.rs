@@ -12,7 +12,8 @@ pub const BASE_DATA_QUERY_R_BODY_LENGTH: u16 = 32;
 ///
 /// 7.11.9 Data Query-R PDU
 #[derive(Clone, Debug, Default, PartialEq)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize, ts_rs::TS))]
+#[cfg_attr(feature = "serde", ts(export))]
 pub struct DataQueryR {
     pub originating_id: EntityId,
     pub receiving_id: EntityId,

@@ -29,7 +29,8 @@ pub enum EntityStateValidationError {
 ///
 /// 7.2.2 Entity State PDU
 #[derive(Clone, Debug, Default, PartialEq)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize, ts_rs::TS))]
+#[cfg_attr(feature = "serde", ts(export))]
 pub struct EntityState {
     pub entity_id: EntityId,                     // struct
     pub force_id: ForceId,                       // enum
@@ -85,7 +86,8 @@ impl Interaction for EntityState {
 
 /// 6.2.26 Entity Appearance record
 #[derive(Copy, Clone, Debug, PartialEq)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize, ts_rs::TS))]
+#[cfg_attr(feature = "serde", ts(export))]
 pub enum EntityAppearance {
     LandPlatform(LandPlatformAppearance),
     AirPlatform(AirPlatformAppearance),
@@ -224,7 +226,8 @@ impl From<&EntityAppearance> for u32 {
 
 /// 6.2.29 Entity Marking record
 #[derive(Clone, Debug, PartialEq)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize, ts_rs::TS))]
+#[cfg_attr(feature = "serde", ts(export))]
 pub struct EntityMarking {
     pub marking_character_set: EntityMarkingCharacterSet,
     pub marking_string: String, // 11 byte String
@@ -283,7 +286,8 @@ impl FromStr for EntityMarking {
 
 /// Custom defined record to group Dead Reckoning Parameters
 #[derive(Clone, Default, Debug, PartialEq)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize, ts_rs::TS))]
+#[cfg_attr(feature = "serde", ts(export))]
 pub struct DrParameters {
     pub algorithm: DeadReckoningAlgorithm,
     pub other_parameters: DrOtherParameters,
@@ -319,7 +323,8 @@ impl DrParameters {
 
 /// E.8 Use of the Other Parameters field in Dead Reckoning Parameters
 #[derive(Clone, Debug, PartialEq)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize, ts_rs::TS))]
+#[cfg_attr(feature = "serde", ts(export))]
 #[cfg_attr(feature = "serde", serde(rename_all = "snake_case"))]
 pub enum DrOtherParameters {
     None([u8; 15]),
@@ -335,7 +340,8 @@ impl Default for DrOtherParameters {
 
 /// Identical to Table 58—Euler Angles record / 6.2.32 Euler Angles record (which is modeled as `VectorF32`)
 #[derive(Clone, Default, Debug, PartialEq)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize, ts_rs::TS))]
+#[cfg_attr(feature = "serde", ts(export))]
 pub struct DrEulerAngles {
     pub local_yaw: f32,
     pub local_pitch: f32,
@@ -364,7 +370,8 @@ impl DrEulerAngles {
 
 /// Table E.3—World Orientation Quaternion Dead Reckoning Parameters (E.8.2.3 Rotating DRM entities)
 #[derive(Clone, Default, Debug, PartialEq)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize, ts_rs::TS))]
+#[cfg_attr(feature = "serde", ts(export))]
 pub struct DrWorldOrientationQuaternion {
     pub nil: u16,
     pub x: f32,

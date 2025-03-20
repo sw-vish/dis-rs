@@ -56,3 +56,6 @@ Thumbs.db
 # Coverage
 cobertura.xml
 tarpaulin-report.html
+
+# Typescript bindings
+bindings/

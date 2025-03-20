@@ -11,7 +11,8 @@ const SERVICE_REQUEST_BASE_BODY_LENGTH: u16 = 16;
 ///
 /// 7.4.2 Service Request PDU
 #[derive(Clone, Debug, Default, PartialEq)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize, ts_rs::TS))]
+#[cfg_attr(feature = "serde", ts(export))]
 pub struct ServiceRequest {
     pub requesting_id: EntityId,
     pub servicing_id: EntityId,

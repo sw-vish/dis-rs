@@ -12,7 +12,8 @@ use serde::{Deserialize, Serialize};
 pub const BASE_DATA_BODY_LENGTH: u16 = 28;
 
 #[derive(Clone, Debug, Default, PartialEq)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize, ts_rs::TS))]
+#[cfg_attr(feature = "serde", ts(export))]
 pub struct Data {
     pub originating_id: EntityId,
     pub receiving_id: EntityId,

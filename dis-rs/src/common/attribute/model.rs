@@ -13,7 +13,8 @@ pub const BASE_ATTRIBUTE_RECORD_LENGTH_OCTETS: u16 = 6;
 ///
 /// 7.2.6 Attribute PDU
 #[derive(Clone, Debug, Default, PartialEq)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize, ts_rs::TS))]
+#[cfg_attr(feature = "serde", ts(export))]
 pub struct Attribute {
     pub originating_simulation_address: SimulationAddress,
     pub record_pdu_type: PduType,
@@ -77,7 +78,8 @@ impl Interaction for Attribute {
 
 /// 5.3.6.3
 #[derive(Clone, Debug, PartialEq)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize, ts_rs::TS))]
+#[cfg_attr(feature = "serde", ts(export))]
 pub struct AttributeRecordSet {
     pub entity_id: EntityId,
     pub attribute_records: Vec<AttributeRecord>,
@@ -119,7 +121,8 @@ impl AttributeRecordSet {
 
 /// 6.2.10 Attribute record
 #[derive(Clone, Debug, PartialEq)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize, ts_rs::TS))]
+#[cfg_attr(feature = "serde", ts(export))]
 pub struct AttributeRecord {
     pub record_type: VariableRecordType,
     pub specific_fields: Vec<u8>,

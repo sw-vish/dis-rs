@@ -11,7 +11,8 @@ const RESUPPLY_CANCEL_BASE_BODY_LENGTH: u16 = 12;
 ///
 /// 7.4.5 Resupply Cancel PDU
 #[derive(Clone, Debug, Default, PartialEq)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize, ts_rs::TS))]
+#[cfg_attr(feature = "serde", ts(export))]
 pub struct ResupplyCancel {
     pub requesting_id: EntityId,
     pub servicing_id: EntityId,

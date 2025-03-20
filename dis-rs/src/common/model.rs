@@ -78,7 +78,8 @@ use std::str::FromStr;
 pub use crate::v7::model::PduStatus;
 
 #[derive(Clone, Debug, PartialEq)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize, ts_rs::TS))]
+#[cfg_attr(feature = "serde", ts(export))]
 pub struct Pdu {
     pub header: PduHeader,
     pub body: PduBody,
@@ -118,7 +119,8 @@ impl Interaction for Pdu {
 
 /// 6.2.66 PDU Header record
 #[derive(Copy, Clone, Debug, PartialEq)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize, ts_rs::TS))]
+#[cfg_attr(feature = "serde", ts(export))]
 pub struct PduHeader {
     pub protocol_version: ProtocolVersion,
     pub exercise_id: u8,
@@ -184,7 +186,8 @@ impl PduHeader {
 }
 
 #[derive(Clone, Debug, PartialEq)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize, ts_rs::TS))]
+#[cfg_attr(feature = "serde", ts(export))]
 #[cfg_attr(feature = "serde", serde(rename_all = "snake_case"))]
 #[cfg_attr(feature = "serde", serde(tag = "type"))]
 pub enum PduBody {
@@ -670,7 +673,8 @@ impl From<PduType> for ProtocolFamily {
 
 /// 6.2.80 Simulation Address record
 #[derive(Copy, Clone, Debug, PartialEq, Eq, Hash, Ord, PartialOrd)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize, ts_rs::TS))]
+#[cfg_attr(feature = "serde", ts(export))]
 pub struct SimulationAddress {
     pub site_id: u16,
     pub application_id: u16,
@@ -755,7 +759,8 @@ impl TryFrom<String> for SimulationAddress {
 /// 6.2.28 Entity Identifier record
 /// 6.2.81 Simulation Identifier record
 #[derive(Copy, Clone, Debug, PartialEq, Eq, Hash)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize, ts_rs::TS))]
+#[cfg_attr(feature = "serde", ts(export))]
 pub struct EntityId {
     pub simulation_address: SimulationAddress,
     pub entity_id: u16,
@@ -852,7 +857,8 @@ impl TryFrom<String> for EntityId {
 }
 
 #[derive(Copy, Clone, Debug, PartialEq)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize, ts_rs::TS))]
+#[cfg_attr(feature = "serde", ts(export))]
 pub struct EventId {
     pub simulation_address: SimulationAddress,
     pub event_id: u16,
@@ -934,7 +940,8 @@ impl TryFrom<String> for EventId {
 /// 6.2.96 Vector record
 /// 6.2.7 Angular Velocity Vector record
 #[derive(Copy, Clone, Default, Debug, PartialEq)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize, ts_rs::TS))]
+#[cfg_attr(feature = "serde", ts(export))]
 pub struct VectorF32 {
     pub first_vector_component: f32,
     pub second_vector_component: f32,
@@ -973,7 +980,8 @@ impl VectorF32 {
 // TODO rename Location to World Coordinate
 /// 6.2.98 World Coordinates record
 #[derive(Copy, Clone, Debug, Default, PartialEq)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize, ts_rs::TS))]
+#[cfg_attr(feature = "serde", ts(export))]
 pub struct Location {
     pub x_coordinate: f64,
     pub y_coordinate: f64,
@@ -1012,7 +1020,8 @@ impl Location {
 // TODO rename Orientation to EulerAngle
 /// 6.2.32 Euler Angles record
 #[derive(Copy, Clone, Default, Debug, PartialEq)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize, ts_rs::TS))]
+#[cfg_attr(feature = "serde", ts(export))]
 pub struct Orientation {
     pub psi: f32,
     pub theta: f32,
@@ -1047,7 +1056,8 @@ impl Orientation {
 
 /// 6.2.30 Entity Type record
 #[derive(Copy, Clone, Debug, Default, PartialEq, Eq, Hash)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize, ts_rs::TS))]
+#[cfg_attr(feature = "serde", ts(export))]
 pub struct EntityType {
     pub kind: EntityKind,
     pub domain: PlatformDomain,
@@ -1197,7 +1207,8 @@ impl TryFrom<String> for EntityType {
 
 /// 6.2.19 Descriptor records
 #[derive(Clone, Debug, PartialEq)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize, ts_rs::TS))]
+#[cfg_attr(feature = "serde", ts(export))]
 pub enum DescriptorRecord {
     /// 6.2.19.2 Munition Descriptor record
     #[cfg_attr(feature = "serde", serde(rename = "munition"))]
@@ -1253,7 +1264,8 @@ impl Default for DescriptorRecord {
 
 /// 6.2.19.2 Munition Descriptor record
 #[derive(Clone, Default, Debug, PartialEq)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize, ts_rs::TS))]
+#[cfg_attr(feature = "serde", ts(export))]
 pub struct MunitionDescriptor {
     pub warhead: MunitionDescriptorWarhead,
     pub fuse: MunitionDescriptorFuse,
@@ -1298,7 +1310,8 @@ impl MunitionDescriptor {
 /// This raw timestamp could also be interpreted as a Unix timestamp, or something else
 /// like a monotonically increasing timestamp. This is left up to the client applications of the protocol _by this library_.
 #[derive(Copy, Clone, Default, Debug, PartialEq)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize, ts_rs::TS))]
+#[cfg_attr(feature = "serde", ts(export))]
 pub struct TimeStamp {
     pub raw_timestamp: u32,
 }
@@ -1451,7 +1464,8 @@ impl From<DisTimeStamp> for u32 {
 
 /// 6.2.14 Clock Time record
 #[derive(Copy, Clone, Default, Debug, PartialEq)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize, ts_rs::TS))]
+#[cfg_attr(feature = "serde", ts(export))]
 pub struct ClockTime {
     pub hour: i32,
     pub time_past_hour: u32,
@@ -1492,7 +1506,8 @@ pub const BASE_VARIABLE_DATUM_LENGTH: u16 = 8;
 
 /// 6.2.37 Fixed Datum record
 #[derive(Clone, Debug, PartialEq)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize, ts_rs::TS))]
+#[cfg_attr(feature = "serde", ts(export))]
 pub struct FixedDatum {
     pub datum_id: VariableRecordType,
     pub datum_value: u32,
@@ -1510,7 +1525,8 @@ impl FixedDatum {
 
 /// 6.2.93 Variable Datum record
 #[derive(Clone, Debug, PartialEq)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize, ts_rs::TS))]
+#[cfg_attr(feature = "serde", ts(export))]
 pub struct VariableDatum {
     pub datum_id: VariableRecordType,
     pub datum_value: Vec<u8>,
@@ -1575,7 +1591,8 @@ pub(crate) fn length_padded_to_num(data_length: usize, pad_to_num: usize) -> Pad
 
 /// 6.2.94 Variable Parameter record
 #[derive(Clone, Debug, PartialEq)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize, ts_rs::TS))]
+#[cfg_attr(feature = "serde", ts(export))]
 pub enum VariableParameter {
     Articulated(ArticulatedPart),
     Attached(AttachedPart),
@@ -1587,7 +1604,8 @@ pub enum VariableParameter {
 
 /// 6.2.94.2 Articulated Part VP record
 #[derive(Copy, Clone, Debug, Default, PartialEq)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize, ts_rs::TS))]
+#[cfg_attr(feature = "serde", ts(export))]
 pub struct ArticulatedPart {
     pub change_indicator: ChangeIndicator,
     pub attachment_id: u16,
@@ -1635,7 +1653,8 @@ impl ArticulatedPart {
 
 /// 6.2.94.3 Attached Part VP record
 #[derive(Copy, Clone, Debug, Default, PartialEq)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize, ts_rs::TS))]
+#[cfg_attr(feature = "serde", ts(export))]
 pub struct AttachedPart {
     pub detached_indicator: AttachedPartDetachedIndicator,
     pub attachment_id: u16,
@@ -1679,7 +1698,8 @@ impl AttachedPart {
 
 /// 6.2.94.6 Separation VP record
 #[derive(Copy, Clone, Debug, Default, PartialEq)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize, ts_rs::TS))]
+#[cfg_attr(feature = "serde", ts(export))]
 pub struct SeparationParameter {
     pub reason: SeparationReasonForSeparation,
     pub pre_entity_indicator: SeparationPreEntityIndicator,
@@ -1730,7 +1750,8 @@ impl SeparationParameter {
 
 /// 6.2.94.5 Entity Type VP record
 #[derive(Copy, Clone, Debug, Default, PartialEq)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize, ts_rs::TS))]
+#[cfg_attr(feature = "serde", ts(export))]
 pub struct EntityTypeParameter {
     pub change_indicator: ChangeIndicator,
     pub entity_type: EntityType,
@@ -1757,7 +1778,8 @@ impl EntityTypeParameter {
 
 /// 6.2.94.4 Entity Association VP Record
 #[derive(Copy, Clone, Debug, Default, PartialEq)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize, ts_rs::TS))]
+#[cfg_attr(feature = "serde", ts(export))]
 pub struct EntityAssociationParameter {
     pub change_indicator: ChangeIndicator,
     pub association_status: EntityAssociationAssociationStatus,
@@ -1838,7 +1860,8 @@ impl EntityAssociationParameter {
 
 /// 6.2.11 Beam Data record
 #[derive(Copy, Clone, Default, Debug, PartialEq)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize, ts_rs::TS))]
+#[cfg_attr(feature = "serde", ts(export))]
 pub struct BeamData {
     pub azimuth_center: f32,
     pub azimuth_sweep: f32,
@@ -1888,7 +1911,8 @@ pub const SUPPLY_QUANTITY_RECORD_LENGTH: u16 = 12;
 
 /// 6.2.86 Supply Quantity record
 #[derive(Clone, Debug, Default, PartialEq)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize, ts_rs::TS))]
+#[cfg_attr(feature = "serde", ts(export))]
 pub struct SupplyQuantity {
     pub supply_type: EntityType,
     pub quantity: f32,
@@ -1912,7 +1936,8 @@ pub const BASE_RECORD_SPEC_RECORD_LENGTH: u16 = 16;
 
 /// 6.2.73 Record Specification record
 #[derive(Clone, Debug, Default, PartialEq)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize, ts_rs::TS))]
+#[cfg_attr(feature = "serde", ts(export))]
 pub struct RecordSpecification {
     pub record_sets: Vec<RecordSet>,
 }
@@ -1933,7 +1958,8 @@ impl RecordSpecification {
 
 /// Part of 6.2.73 Record Specification record
 #[derive(Clone, Debug, Default, PartialEq)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize, ts_rs::TS))]
+#[cfg_attr(feature = "serde", ts(export))]
 pub struct RecordSet {
     pub record_id: VariableRecordType,
     pub record_serial_number: u32,

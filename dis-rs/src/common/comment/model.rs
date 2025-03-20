@@ -14,7 +14,8 @@ const BASE_COMMENT_BODY_LENGTH: u16 = 20;
 ///
 /// 7.5.13 Comment PDU
 #[derive(Clone, Debug, Default, PartialEq)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize, ts_rs::TS))]
+#[cfg_attr(feature = "serde", ts(export))]
 pub struct Comment {
     pub originating_id: EntityId,
     pub receiving_id: EntityId,

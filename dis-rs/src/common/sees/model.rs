@@ -12,7 +12,8 @@ const BASE_SYSTEM_DATA_LENGTH: u16 = 8;
 ///
 /// 7.6.6 Supplemental Emission/Entity State (SEES) PDU
 #[derive(Clone, Debug, Default, PartialEq)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize, ts_rs::TS))]
+#[cfg_attr(feature = "serde", ts(export))]
 pub struct SEES {
     pub originating_entity_id: EntityId,
     pub infrared_signature_representation_index: u16,
@@ -63,7 +64,8 @@ impl Interaction for SEES {
 
 /// 6.2.68 Propulsion System Data record
 #[derive(Clone, Debug, Default, PartialEq)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize, ts_rs::TS))]
+#[cfg_attr(feature = "serde", ts(export))]
 pub struct PropulsionSystemData {
     pub power_setting: f32,
     pub engine_rpm: f32,
@@ -85,7 +87,8 @@ impl PropulsionSystemData {
 
 /// 6.2.97 Vectoring Nozzle System Data record
 #[derive(Clone, Debug, Default, PartialEq)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize, ts_rs::TS))]
+#[cfg_attr(feature = "serde", ts(export))]
 pub struct VectoringNozzleSystemData {
     pub horizontal_deflection_angle: f32,
     pub vertical_deflection_angle: f32,

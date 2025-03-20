@@ -8,7 +8,8 @@ use serde::{Deserialize, Serialize};
 const RECEIVER_BODY_LENGTH: u16 = 24;
 
 #[derive(Clone, Debug, Default, PartialEq)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize, ts_rs::TS))]
+#[cfg_attr(feature = "serde", ts(export))]
 pub struct Receiver {
     pub radio_reference_id: EntityId,
     pub radio_number: u16,

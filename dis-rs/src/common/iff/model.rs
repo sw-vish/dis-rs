@@ -38,7 +38,8 @@ pub const BASE_IFF_DATA_RECORD_LENGTH_OCTETS: u16 = 6;
 ///
 /// 7.6.5.2 Layer 1 basic system data
 #[derive(Clone, Debug, Default, PartialEq)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize, ts_rs::TS))]
+#[cfg_attr(feature = "serde", ts(export))]
 pub struct Iff {
     pub emitting_entity_id: EntityId,
     pub event_id: EventId,
@@ -116,7 +117,8 @@ impl Interaction for Iff {
 /// The Secondary Operational Data record (6.2.76) has been flattened in the `IffLayer2` struct, as it only
 /// contains two 8-bit records.
 #[derive(Clone, Debug, PartialEq)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize, ts_rs::TS))]
+#[cfg_attr(feature = "serde", ts(export))]
 pub struct IffLayer2 {
     pub layer_header: LayerHeader,
     pub beam_data: BeamData,
@@ -166,7 +168,8 @@ impl IffLayer2 {
 /// 7.6.5.4.2 Layer 3 Mode 5 Interrogator Format
 /// 7.6.5.4.3 Layer 3 Mode 5 Transponder Format
 #[derive(Clone, Debug, PartialEq)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize, ts_rs::TS))]
+#[cfg_attr(feature = "serde", ts(export))]
 pub struct IffLayer3 {
     pub layer_header: LayerHeader,
     pub reporting_simulation: SimulationAddress,
@@ -210,7 +213,8 @@ impl IffLayer3 {
 /// Custom defined enum to model having either an
 /// Interrogator or a Transponder in an IFF Layer 3 Mode 5 PDU
 #[derive(Clone, Debug, PartialEq)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize, ts_rs::TS))]
+#[cfg_attr(feature = "serde", ts(export))]
 #[cfg_attr(feature = "serde", serde(rename_all = "snake_case"))]
 pub enum Mode5BasicData {
     Interrogator(Mode5InterrogatorBasicData), // 7.6.5.4.2 Layer 3 Mode 5 Interrogator Format
@@ -237,7 +241,8 @@ impl Mode5BasicData {
 
 /// 7.6.5.5 Layer 4 Mode S formats
 #[derive(Clone, Debug, PartialEq)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize, ts_rs::TS))]
+#[cfg_attr(feature = "serde", ts(export))]
 pub struct IffLayer4 {
     pub layer_header: LayerHeader,
     pub reporting_simulation: SimulationAddress,
@@ -281,7 +286,8 @@ impl IffLayer4 {
 /// Custom defined enum to model having either an
 /// Interrogator or a Transponder in an IFF Layer 4 Mode S PDU
 #[derive(Clone, Debug, PartialEq)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize, ts_rs::TS))]
+#[cfg_attr(feature = "serde", ts(export))]
 #[cfg_attr(feature = "serde", serde(rename_all = "snake_case"))]
 pub enum ModeSBasicData {
     Interrogator(ModeSInterrogatorBasicData), // 7.6.5.5.2 Layer 4 Mode S Interrogator Format
@@ -308,7 +314,8 @@ impl ModeSBasicData {
 
 /// 7.6.5.6 Layer 5 data communications
 #[derive(Clone, Debug, PartialEq)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize, ts_rs::TS))]
+#[cfg_attr(feature = "serde", ts(export))]
 pub struct IffLayer5 {
     pub layer_header: LayerHeader,
     pub reporting_simulation: SimulationAddress,
@@ -354,7 +361,8 @@ impl IffLayer5 {
 /// 6.2.13 Change/Options record
 #[allow(clippy::struct_excessive_bools)]
 #[derive(Copy, Clone, Default, Debug, PartialEq)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize, ts_rs::TS))]
+#[cfg_attr(feature = "serde", ts(export))]
 pub struct ChangeOptionsRecord {
     pub change_indicator: bool,
     pub system_specific_field_1: bool,
@@ -461,7 +469,8 @@ impl From<&ChangeOptionsRecord> for u8 {
 
 /// 6.2.39 Fundamental Operational Data record
 #[derive(Clone, Default, Debug, PartialEq)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize, ts_rs::TS))]
+#[cfg_attr(feature = "serde", ts(export))]
 pub struct FundamentalOperationalData {
     pub system_status: SystemStatus,
     pub data_field_1: u8,
@@ -485,7 +494,8 @@ impl FundamentalOperationalData {
 /// Custom defined enum to model the capability of a parameter in the
 /// `FundamentalOperationalData` record.
 #[derive(Copy, Clone, Default, Debug, PartialEq)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize, ts_rs::TS))]
+#[cfg_attr(feature = "serde", ts(export))]
 pub enum ParameterCapable {
     #[default]
     Capable,
@@ -495,7 +505,8 @@ pub enum ParameterCapable {
 /// Custom defined enum to model the capability of a parameter in the
 /// `FundamentalOperationalData` record.
 #[derive(Copy, Clone, Default, Debug, PartialEq)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize, ts_rs::TS))]
+#[cfg_attr(feature = "serde", ts(export))]
 pub enum OperationalStatus {
     #[default]
     Operational,
@@ -505,7 +516,8 @@ pub enum OperationalStatus {
 /// Custom defined enum to model the presence or applicability of an IFF layer
 /// as used in IFF Layer 1.
 #[derive(Copy, Clone, Default, Debug, PartialEq)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize, ts_rs::TS))]
+#[cfg_attr(feature = "serde", ts(export))]
 pub enum LayersPresenceApplicability {
     #[default]
     NotPresentApplicable, // 0
@@ -514,7 +526,8 @@ pub enum LayersPresenceApplicability {
 
 /// 6.2.43 IFF Data Specification record
 #[derive(Clone, Default, Debug, PartialEq)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize, ts_rs::TS))]
+#[cfg_attr(feature = "serde", ts(export))]
 pub struct IffDataRecord {
     pub record_type: VariableRecordType, // UID 66
     pub record_specific_fields: Vec<u8>,
@@ -540,7 +553,8 @@ impl IffDataRecord {
 
 /// 6.2.43 IFF Data Specification record
 #[derive(Clone, Default, Debug, PartialEq)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize, ts_rs::TS))]
+#[cfg_attr(feature = "serde", ts(export))]
 pub struct IffDataSpecification {
     pub iff_data_records: Vec<IffDataRecord>,
 }
@@ -572,7 +586,8 @@ impl IffDataSpecification {
 
 /// 6.2.45 Information Layers record
 #[derive(Copy, Clone, Default, Debug, PartialEq)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize, ts_rs::TS))]
+#[cfg_attr(feature = "serde", ts(export))]
 pub struct InformationLayers {
     pub layer_1: LayersPresenceApplicability,
     pub layer_2: LayersPresenceApplicability,
@@ -633,7 +648,8 @@ impl From<&InformationLayers> for u8 {
 
 /// 6.2.44 IFF Fundamental Parameter Data Record
 #[derive(Clone, Default, Debug, PartialEq)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize, ts_rs::TS))]
+#[cfg_attr(feature = "serde", ts(export))]
 pub struct IffFundamentalParameterData {
     pub erp: f32,
     pub frequency: f32,
@@ -653,7 +669,8 @@ impl IffFundamentalParameterData {
 
 /// 6.2.51 Layer Header
 #[derive(Clone, Default, Debug, PartialEq)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize, ts_rs::TS))]
+#[cfg_attr(feature = "serde", ts(export))]
 pub struct LayerHeader {
     pub layer_number: u8,
     pub layer_specific_information: u8,
@@ -674,7 +691,8 @@ impl LayerHeader {
 
 // TODO placeholder for 24-bits - See Annex B.
 #[derive(Copy, Clone, Default, Debug, PartialEq)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize, ts_rs::TS))]
+#[cfg_attr(feature = "serde", ts(export))]
 pub struct SystemSpecificData {
     pub part_1: u8,
     pub part_2: u8,
@@ -695,7 +713,8 @@ impl SystemSpecificData {
 
 /// 6.2.87 System Identifier record
 #[derive(Copy, Clone, Default, Debug, PartialEq)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize, ts_rs::TS))]
+#[cfg_attr(feature = "serde", ts(export))]
 pub struct SystemId {
     pub system_type: IffSystemType,
     pub system_name: IffSystemName,
@@ -718,7 +737,8 @@ impl SystemId {
 /// B.2.6 DAP Source record
 /// Downlink of Aircraft Parameters
 #[derive(Clone, Default, Debug, PartialEq)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize, ts_rs::TS))]
+#[cfg_attr(feature = "serde", ts(export))]
 pub struct DapSource {
     pub indicated_air_speed: DapValue,
     pub mach_number: DapValue,
@@ -790,7 +810,8 @@ impl From<&DapSource> for u8 {
 
 /// Custom defined enum to model values in the DAP Source record
 #[derive(Clone, Default, Debug, PartialEq)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize, ts_rs::TS))]
+#[cfg_attr(feature = "serde", ts(export))]
 pub enum DapValue {
     #[default]
     ComputeLocally, // 0
@@ -799,7 +820,8 @@ pub enum DapValue {
 
 /// B.2.9 Enhanced Mode 1 Code record
 #[derive(Clone, Default, Debug, PartialEq)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize, ts_rs::TS))]
+#[cfg_attr(feature = "serde", ts(export))]
 pub struct EnhancedMode1Code {
     pub code_element_1_d: u16,
     pub code_element_2_c: u16,
@@ -874,7 +896,8 @@ impl From<&EnhancedMode1Code> for u16 {
 
 /// B.2.26 Mode 5 Interrogator Basic Data record
 #[derive(Clone, Default, Debug, PartialEq)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize, ts_rs::TS))]
+#[cfg_attr(feature = "serde", ts(export))]
 pub struct Mode5InterrogatorBasicData {
     pub status: Mode5InterrogatorStatus, // B.2.27 Mode 5 Interrogator Status record - page 592
     pub mode_5_message_formats_present: Mode5MessageFormats, // B.2.28 Mode 5 Message Formats record - page 592
@@ -895,7 +918,8 @@ impl Mode5InterrogatorBasicData {
 
 /// B.2.27 Mode 5 Interrogator Status record
 #[derive(Clone, Default, Debug, PartialEq)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize, ts_rs::TS))]
+#[cfg_attr(feature = "serde", ts(export))]
 pub struct Mode5InterrogatorStatus {
     pub iff_mission: Mode5IffMission,
     pub mode_5_message_formats_status: Mode5MessageFormatsStatus,
@@ -950,7 +974,8 @@ impl From<&Mode5InterrogatorStatus> for u8 {
 
 /// B.2.28 Mode 5 Message Formats record
 #[derive(Clone, Default, Debug, PartialEq)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize, ts_rs::TS))]
+#[cfg_attr(feature = "serde", ts(export))]
 pub struct Mode5MessageFormats {
     pub message_format_0: IffPresence, // 0 - Not Present, 1 - Present
     pub message_format_1: IffPresence,
@@ -1144,7 +1169,8 @@ impl From<&Mode5MessageFormats> for u32 {
 
 /// B.2.29 Mode 5 Transponder Basic Data record
 #[derive(Clone, Default, Debug, PartialEq)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize, ts_rs::TS))]
+#[cfg_attr(feature = "serde", ts(export))]
 pub struct Mode5TransponderBasicData {
     pub status: Mode5TransponderStatus,
     pub pin: u16,
@@ -1170,7 +1196,8 @@ impl Mode5TransponderBasicData {
 
 /// Custom defined enum to model a system being On or Off.
 #[derive(Copy, Clone, Default, Debug, PartialEq)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize, ts_rs::TS))]
+#[cfg_attr(feature = "serde", ts(export))]
 pub enum OnOffStatus {
     #[default]
     Off, // 0
@@ -1179,7 +1206,8 @@ pub enum OnOffStatus {
 
 /// Custom defined enum to model a system being Not Damaged or Damaged.
 #[derive(Clone, Default, Debug, PartialEq)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize, ts_rs::TS))]
+#[cfg_attr(feature = "serde", ts(export))]
 pub enum DamageStatus {
     #[default]
     NoDamage, // 0
@@ -1188,7 +1216,8 @@ pub enum DamageStatus {
 
 /// Custom defined enum to model a system being Not Malfunctioning or Malfunctioning.
 #[derive(Clone, Default, Debug, PartialEq)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize, ts_rs::TS))]
+#[cfg_attr(feature = "serde", ts(export))]
 pub enum MalfunctionStatus {
     #[default]
     NoMalfunction, // 0
@@ -1197,7 +1226,8 @@ pub enum MalfunctionStatus {
 
 /// Custom defined enum to model a system being Not Enabled or Enabled.
 #[derive(Clone, Default, Debug, PartialEq)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize, ts_rs::TS))]
+#[cfg_attr(feature = "serde", ts(export))]
 pub enum EnabledStatus {
     #[default]
     NotEnabled, // 0
@@ -1207,7 +1237,8 @@ pub enum EnabledStatus {
 /// Custom defined enum to model the source of
 /// Mode 5 latitude, longitude, and altitude information.
 #[derive(Clone, Default, Debug, PartialEq)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize, ts_rs::TS))]
+#[cfg_attr(feature = "serde", ts(export))]
 pub enum LatLonAltSource {
     #[default]
     ComputeLocally, // 0
@@ -1216,7 +1247,8 @@ pub enum LatLonAltSource {
 
 /// B.2.31 Mode 5 Transponder Supplemental Data (SD) record
 #[derive(Clone, Default, Debug, PartialEq)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize, ts_rs::TS))]
+#[cfg_attr(feature = "serde", ts(export))]
 pub struct Mode5TransponderSupplementalData {
     pub squitter_on_off_status: SquitterStatus,
     pub level_2_squitter_status: Level2SquitterStatus,
@@ -1262,7 +1294,8 @@ impl From<&Mode5TransponderSupplementalData> for u8 {
 
 /// B.2.32 Mode 5 Transponder Status record
 #[derive(Clone, Default, Debug, PartialEq)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize, ts_rs::TS))]
+#[cfg_attr(feature = "serde", ts(export))]
 pub struct Mode5TransponderStatus {
     pub mode_5_reply: Mode5Reply,
     pub line_test: EnabledStatus,
@@ -1361,7 +1394,8 @@ impl From<&Mode5TransponderStatus> for u16 {
 
 /// B.2.36 Mode S Altitude record
 #[derive(Clone, Default, Debug, PartialEq)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize, ts_rs::TS))]
+#[cfg_attr(feature = "serde", ts(export))]
 pub struct ModeSAltitude {
     pub altitude: u16,
     pub resolution: Mode5SAltitudeResolution,
@@ -1404,7 +1438,8 @@ impl From<&ModeSAltitude> for u16 {
 
 /// B.2.37 Mode S Interrogator Basic Data record
 #[derive(Clone, Default, Debug, PartialEq)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize, ts_rs::TS))]
+#[cfg_attr(feature = "serde", ts(export))]
 pub struct ModeSInterrogatorBasicData {
     pub mode_s_interrogator_status: ModeSInterrogatorStatus,
     pub mode_s_levels_present: ModeSLevelsPresent,
@@ -1424,7 +1459,8 @@ impl ModeSInterrogatorBasicData {
 
 /// B.2.39 Mode S Interrogator Status record
 #[derive(Clone, Default, Debug, PartialEq)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize, ts_rs::TS))]
+#[cfg_attr(feature = "serde", ts(export))]
 pub struct ModeSInterrogatorStatus {
     pub on_off_status: OnOffStatus,
     pub transmit_state: ModeSTransmitState,
@@ -1474,7 +1510,8 @@ impl From<&ModeSInterrogatorStatus> for u8 {
 
 /// B.2.40 Mode S Levels Present record
 #[derive(Clone, Default, Debug, PartialEq)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize, ts_rs::TS))]
+#[cfg_attr(feature = "serde", ts(export))]
 pub struct ModeSLevelsPresent {
     pub level_1: IffPresence,
     pub level_2_els: IffPresence,
@@ -1529,7 +1566,8 @@ impl From<&ModeSLevelsPresent> for u8 {
 
 /// Custom defined enum to model the presence of an element in an IFF system
 #[derive(Clone, Default, Debug, PartialEq)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize, ts_rs::TS))]
+#[cfg_attr(feature = "serde", ts(export))]
 pub enum IffPresence {
     #[default]
     NotPresent, // 0
@@ -1538,7 +1576,8 @@ pub enum IffPresence {
 
 /// B.2.41 Mode S Transponder Basic Data record
 #[derive(Clone, Default, Debug, PartialEq)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize, ts_rs::TS))]
+#[cfg_attr(feature = "serde", ts(export))]
 pub struct ModeSTransponderBasicData {
     pub status: ModeSTransponderStatus,
     pub levels_present: ModeSLevelsPresent,
@@ -1565,7 +1604,8 @@ impl ModeSTransponderBasicData {
 
 /// B.2.42 Mode S Transponder Status record
 #[derive(Clone, Default, Debug, PartialEq)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize, ts_rs::TS))]
+#[cfg_attr(feature = "serde", ts(export))]
 pub struct ModeSTransponderStatus {
     pub squitter_status: SquitterStatus,
     pub squitter_type: ModeSSquitterType,
@@ -1667,7 +1707,8 @@ impl From<&ModeSTransponderStatus> for u16 {
 
 /// Custom defined enum to model the `SquitterStatus`
 #[derive(Clone, Default, Debug, PartialEq)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize, ts_rs::TS))]
+#[cfg_attr(feature = "serde", ts(export))]
 pub enum SquitterStatus {
     #[default]
     Off, // 0
@@ -1676,7 +1717,8 @@ pub enum SquitterStatus {
 
 /// B.2.52 System Status record
 #[derive(Copy, Clone, Default, Debug, PartialEq)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize, ts_rs::TS))]
+#[cfg_attr(feature = "serde", ts(export))]
 pub struct SystemStatus {
     pub system_on_off_status: OnOffStatus,
     pub parameter_1_capable: ParameterCapable,

@@ -11,7 +11,8 @@ const FIRE_BODY_LENGTH: u16 = 84;
 ///
 /// 7.3.2 Fire PDU
 #[derive(Clone, Debug, Default, PartialEq)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize, ts_rs::TS))]
+#[cfg_attr(feature = "serde", ts(export))]
 pub struct Fire {
     pub firing_entity_id: EntityId,
     pub target_entity_id: EntityId,

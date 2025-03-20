@@ -11,7 +11,8 @@ const IS_PART_OF_BODY_LENGTH: u16 = 40;
 ///
 /// 7.8.5 `IsPartOf` PDU
 #[derive(Clone, Debug, Default, PartialEq)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize, ts_rs::TS))]
+#[cfg_attr(feature = "serde", ts(export))]
 pub struct IsPartOf {
     pub originating_simulation_id: EntityId,
     pub receiving_entity_id: EntityId,
@@ -60,7 +61,8 @@ impl Interaction for IsPartOf {
 
 /// 6.2.74 Relationship record
 #[derive(Clone, Debug, Default, PartialEq)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize, ts_rs::TS))]
+#[cfg_attr(feature = "serde", ts(export))]
 pub struct Relationship {
     pub nature: IsPartOfNature,
     pub position: IsPartOfPosition,
@@ -82,7 +84,8 @@ impl Relationship {
 
 /// 6.2.62 Named Location Identification record
 #[derive(Clone, Debug, Default, PartialEq)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize, ts_rs::TS))]
+#[cfg_attr(feature = "serde", ts(export))]
 pub struct NamedLocationId {
     pub station_name: StationName,
     pub station_number: u16,

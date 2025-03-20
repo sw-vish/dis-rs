@@ -11,7 +11,8 @@ use serde::{Deserialize, Serialize};
 const BASE_DETONATION_BODY_LENGTH: u16 = 92;
 
 #[derive(Clone, Debug, Default, PartialEq)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize, ts_rs::TS))]
+#[cfg_attr(feature = "serde", ts(export))]
 pub struct Detonation {
     pub source_entity_id: EntityId,
     pub target_entity_id: EntityId,

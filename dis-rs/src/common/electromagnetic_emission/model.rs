@@ -18,7 +18,8 @@ const TRACK_JAM_BASE_LENGTH: u16 = 8;
 ///
 /// 7.6.2 Electromagnetic Emission (EE) PDU
 #[derive(Clone, Debug, Default, PartialEq)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize, ts_rs::TS))]
+#[cfg_attr(feature = "serde", ts(export))]
 pub struct ElectromagneticEmission {
     pub emitting_entity_id: EntityId,
     pub event_id: EventId,
@@ -83,7 +84,8 @@ impl Interaction for ElectromagneticEmission {
 
 /// 6.2.23 Emitter System record
 #[derive(Clone, Debug, PartialEq)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize, ts_rs::TS))]
+#[cfg_attr(feature = "serde", ts(export))]
 pub struct EmitterSystem {
     pub name: EmitterName,
     pub function: EmitterSystemFunction,
@@ -158,7 +160,8 @@ impl EmitterSystem {
 }
 
 #[derive(Clone, Default, Debug, PartialEq)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize, ts_rs::TS))]
+#[cfg_attr(feature = "serde", ts(export))]
 pub struct Beam {
     pub number: u8,
     pub parameter_index: u16,
@@ -261,7 +264,8 @@ impl Beam {
 
 /// 6.2.22 EE Fundamental Parameter Data record
 #[derive(Copy, Clone, Default, Debug, PartialEq)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize, ts_rs::TS))]
+#[cfg_attr(feature = "serde", ts(export))]
 pub struct FundamentalParameterData {
     pub frequency: f32,
     pub frequency_range: f32,
@@ -315,7 +319,8 @@ impl FundamentalParameterData {
 
 /// 6.2.49 Jamming Technique record
 #[derive(Clone, Default, Debug, PartialEq)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize, ts_rs::TS))]
+#[cfg_attr(feature = "serde", ts(export))]
 pub struct JammingTechnique {
     pub kind: u8,
     pub category: u8,
@@ -361,7 +366,8 @@ impl JammingTechnique {
 
 /// 6.2.90 Track/Jam Data record
 #[derive(Clone, Default, Debug, PartialEq)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize, ts_rs::TS))]
+#[cfg_attr(feature = "serde", ts(export))]
 pub struct TrackJam {
     pub entity_id: EntityId,
     pub emitter: u8,

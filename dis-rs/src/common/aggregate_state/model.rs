@@ -23,7 +23,8 @@ pub(crate) const BASE_AGGREGATE_STATE_BODY_LENGTH: u16 = 124;
 ///
 /// 7.8.2 Aggregate State PDU
 #[derive(Clone, Debug, Default, PartialEq)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize, ts_rs::TS))]
+#[cfg_attr(feature = "serde", ts(export))]
 pub struct AggregateState {
     pub aggregate_id: EntityId,
     pub force_id: ForceId,
@@ -109,7 +110,8 @@ impl Interaction for AggregateState {
 
 /// 6.2.4 Aggregate Marking record
 #[derive(Clone, Debug, Default, PartialEq)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize, ts_rs::TS))]
+#[cfg_attr(feature = "serde", ts(export))]
 pub struct AggregateMarking {
     pub marking_character_set: EntityMarkingCharacterSet,
     pub marking_string: String, // 31 byte String
@@ -166,7 +168,8 @@ impl FromStr for AggregateMarking {
 
 /// 6.2.5 Aggregate Type record
 #[derive(Clone, Debug, Default, PartialEq, Eq, Hash)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize, ts_rs::TS))]
+#[cfg_attr(feature = "serde", ts(export))]
 pub struct AggregateType {
     pub aggregate_kind: AggregateStateAggregateKind,
     pub domain: PlatformDomain,
@@ -317,7 +320,8 @@ impl TryFrom<String> for AggregateType {
 
 /// Custom record for `SilentAggregateSystem`
 #[derive(Clone, Debug, Default, PartialEq)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize, ts_rs::TS))]
+#[cfg_attr(feature = "serde", ts(export))]
 pub struct SilentAggregateSystem {
     pub number_of_aggregates: u16,
     pub aggregate_type: AggregateType,
@@ -344,7 +348,8 @@ impl SilentAggregateSystem {
 
 /// 6.2.79 Silent Entity System record
 #[derive(Clone, Debug, Default, PartialEq)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize, ts_rs::TS))]
+#[cfg_attr(feature = "serde", ts(export))]
 pub struct SilentEntitySystem {
     pub number_of_entities: u16,
     pub entity_type: EntityType,

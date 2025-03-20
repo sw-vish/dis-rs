@@ -13,7 +13,8 @@ use serde::{Deserialize, Serialize};
 ///
 /// This struct is used to provide access to the received data in not (yet) supported PDUs.
 #[derive(Clone, Debug, Default, PartialEq)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize, ts_rs::TS))]
+#[cfg_attr(feature = "serde", ts(export))]
 pub struct Other {
     pub originating_entity_id: Option<EntityId>,
     pub receiving_entity_id: Option<EntityId>,
