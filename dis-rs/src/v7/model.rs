@@ -10,7 +10,8 @@ use serde::{Deserialize, Serialize};
 ///
 /// 6.2.67 PDU Status record
 #[derive(Copy, Clone, Debug, PartialEq)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize, ts_rs::TS))]
+#[cfg_attr(feature = "serde", ts(export))]
 pub struct PduStatus {
     pub transferred_entity_indicator: Option<TransferredEntityIndicator>,
     pub lvc_indicator: Option<LvcIndicator>,
