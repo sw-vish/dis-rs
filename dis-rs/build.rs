@@ -836,15 +836,15 @@ mod generation {
         let arms = quote_enum_decl_arms(&e.items, e.size, e.postfix_items, lookup_xref);
         let uid_doc_comment = format!("UID {}", e.uid);
         quote!(
-                    #[doc = #uid_doc_comment]
-                    #[derive(Copy, Clone, Debug, PartialEq, Eq, Hash)]
-                    #[cfg_attr(feature = "serde", derive(Serialize, Deserialize, ts_rs::TS))]
-        #[cfg_attr(feature = "serde", ts(export))]
-                    #[allow(non_camel_case_types)]
-                    pub enum #name_ident {
-                        #(#arms),*
-                    }
-                )
+            #[doc = #uid_doc_comment]
+            #[derive(Copy, Clone, Debug, PartialEq, Eq, Hash)]
+            #[cfg_attr(feature = "serde", derive(Serialize, Deserialize, ts_rs::TS))]
+            #[cfg_attr(feature = "serde", ts(export))]
+            #[allow(non_camel_case_types)]
+            pub enum #name_ident {
+                #(#arms),*
+            }
+        )
     }
 
     fn quote_enum_decl_arms<'a, F>(
@@ -1123,14 +1123,14 @@ mod generation {
         let fields = quote_bitfield_decl_fields(&item.fields, lookup_xref);
         let uid_doc_comment = format!("UID {}", item.uid);
         quote!(
-                    #[doc = #uid_doc_comment]
-                    #[derive(Copy, Clone, Debug, Default, PartialEq, Eq, Hash)]
-                    #[cfg_attr(feature = "serde", derive(Serialize, Deserialize, ts_rs::TS))]
-        #[cfg_attr(feature = "serde", ts(export))]
-                    pub struct #name_ident {
-                        #(#fields),*
-                    }
-                )
+            #[doc = #uid_doc_comment]
+            #[derive(Copy, Clone, Debug, Default, PartialEq, Eq, Hash)]
+            #[cfg_attr(feature = "serde", derive(Serialize, Deserialize, ts_rs::TS))]
+            #[cfg_attr(feature = "serde", ts(export))]
+            pub struct #name_ident {
+                #(#fields),*
+            }
+        )
     }
 
     fn quote_bitfield_decl_fields<'a, F>(
