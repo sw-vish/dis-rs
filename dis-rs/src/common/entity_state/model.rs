@@ -12,6 +12,7 @@ use crate::enumerations::{
     SensorEmitterAppearance, SpacePlatformAppearance, SubsurfacePlatformAppearance,
     SupplyAppearance, SurfacePlatformAppearance,
 };
+use crate::model::EntityDomain;
 use crate::DisError;
 #[cfg(feature = "serde")]
 use serde::{Deserialize, Serialize};
@@ -117,19 +118,19 @@ impl EntityAppearance {
     pub fn from_bytes(appearance: u32, entity_type: &EntityType) -> Self {
         match (entity_type.kind, entity_type.domain) {
             (EntityKind::Other, _) => EntityAppearance::Unspecified(appearance.to_be_bytes()),
-            (EntityKind::Platform, PlatformDomain::Land) => {
+            (EntityKind::Platform, EntityDomain::Platform(PlatformDomain::Land)) => {
                 EntityAppearance::LandPlatform(LandPlatformAppearance::from(appearance))
             }
-            (EntityKind::Platform, PlatformDomain::Air) => {
+            (EntityKind::Platform, EntityDomain::Platform(PlatformDomain::Air)) => {
                 EntityAppearance::AirPlatform(AirPlatformAppearance::from(appearance))
             }
-            (EntityKind::Platform, PlatformDomain::Surface) => {
+            (EntityKind::Platform, EntityDomain::Platform(PlatformDomain::Surface)) => {
                 EntityAppearance::SurfacePlatform(SurfacePlatformAppearance::from(appearance))
             }
-            (EntityKind::Platform, PlatformDomain::Subsurface) => {
+            (EntityKind::Platform, EntityDomain::Platform(PlatformDomain::Subsurface)) => {
                 EntityAppearance::SubsurfacePlatform(SubsurfacePlatformAppearance::from(appearance))
             }
-            (EntityKind::Platform, PlatformDomain::Space) => {
+            (EntityKind::Platform, EntityDomain::Platform(PlatformDomain::Space)) => {
                 EntityAppearance::SpacePlatform(SpacePlatformAppearance::from(appearance))
             }
             (EntityKind::Munition, _) => {

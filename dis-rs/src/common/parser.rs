@@ -24,8 +24,8 @@ use crate::common::fire::parser::fire_body;
 use crate::common::iff::parser::iff_body;
 use crate::common::model::{
     length_padded_to_num, ArticulatedPart, AttachedPart, BeamData, ClockTime, DatumSpecification,
-    DescriptorRecord, EntityAssociationParameter, EntityId, EntityType, EntityTypeParameter,
-    EventId, FixedDatum, Location, MunitionDescriptor, Orientation, Pdu, PduBody, PduHeader,
+    DescriptorRecord, EntityAssociationParameter, EntityId, EntityType, EntityTypeParameter, EventId,
+    FixedDatum, Location, MunitionDescriptor, Orientation, Pdu, PduBody, PduHeader,
     SeparationParameter, SimulationAddress, VariableDatum, VariableParameter, VectorF32,
 };
 use crate::common::other::parser::other_body;
@@ -51,13 +51,13 @@ use crate::enumerations::{
 };
 use crate::enumerations::{
     Country, DetonationTypeIndicator, EntityKind, ExplosiveMaterialCategories, FireTypeIndicator,
-    MunitionDescriptorFuse, MunitionDescriptorWarhead, PduType, PlatformDomain, ProtocolFamily,
-    ProtocolVersion, StationName, VariableRecordType,
+    MunitionDescriptorFuse, MunitionDescriptorWarhead, MunitionDomain, PduType, PlatformDomain,
+    ProtocolFamily, ProtocolVersion, StationName, VariableRecordType,
 };
 use crate::event_report_r::parser::event_report_r_body;
 use crate::is_group_of::parser::is_group_of_body;
 use crate::is_part_of::parser::is_part_of_body;
-use crate::model::{RecordSet, RecordSpecification, SupplyQuantity};
+use crate::model::{EntityDomain, RecordSet, RecordSpecification, SupplyQuantity};
 use crate::record_query_r::parser::record_query_r_body;
 use crate::record_r::parser::record_r_body;
 use crate::remove_entity_r::parser::remove_entity_r_body;
@@ -373,7 +373,7 @@ pub(crate) fn entity_id(input: &[u8]) -> IResult<&[u8], EntityId> {
 
 pub(crate) fn entity_type(input: &[u8]) -> IResult<&[u8], EntityType> {
     let (input, kind) = kind(input)?;
-    let (input, domain) = domain(input)?;
+    let (input, domain) = domain(kind, input)?;
     let (input, country) = country(input)?;
     let (input, category) = be_u8(input)?;
     let (input, subcategory) = be_u8(input)?;
@@ -399,9 +399,12 @@ fn kind(input: &[u8]) -> IResult<&[u8], EntityKind> {
     Ok((input, kind))
 }
 
-fn domain(input: &[u8]) -> IResult<&[u8], PlatformDomain> {
+fn domain(kind: EntityKind, input: &[u8]) -> IResult<&[u8], EntityDomain> {
     let (input, domain) = be_u8(input)?;
-    let domain = PlatformDomain::from(domain);
+    let domain = match kind {
+        EntityKind::Munition => EntityDomain::Munition(MunitionDomain::from(domain)),
+        _ => EntityDomain::Platform(PlatformDomain::from(domain)),
+    };
     Ok((input, domain))
 }
 

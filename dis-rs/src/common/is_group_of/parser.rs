@@ -77,7 +77,7 @@ fn ged_record_1(input: &[u8]) -> IResult<&[u8], GroupEntityDescription> {
     let (input, appearance) = entity_appearance(
         EntityType::default()
             .with_kind(EntityKind::Platform)
-            .with_domain(PlatformDomain::Land),
+            .with_platform_domain(PlatformDomain::Land),
     )(input)?;
     let (input, orientation) = ged_entity_orientation(input)?;
     let (input, speed) = be_u8(input)?;
@@ -133,7 +133,7 @@ fn ged_record_3(input: &[u8]) -> IResult<&[u8], GroupEntityDescription> {
     let (input, appearance) = entity_appearance(
         EntityType::default()
             .with_kind(EntityKind::Platform)
-            .with_domain(PlatformDomain::Land),
+            .with_platform_domain(PlatformDomain::Land),
     )(input)?;
     let (input, orientation) = ged_entity_orientation(input)?;
     let (input, speed) = be_u8(input)?;
@@ -189,7 +189,7 @@ fn ged_record_5(input: &[u8]) -> IResult<&[u8], GroupEntityDescription> {
     let (input, appearance) = entity_appearance(
         EntityType::default()
             .with_kind(EntityKind::Platform)
-            .with_domain(PlatformDomain::Air),
+            .with_platform_domain(PlatformDomain::Air),
     )(input)?;
     let (input, orientation) = ged_entity_orientation(input)?;
     let (input, fuel_status) = be_u8(input)?;
@@ -251,7 +251,7 @@ fn ged_record_7(input: &[u8]) -> IResult<&[u8], GroupEntityDescription> {
     let (input, appearance) = entity_appearance(
         EntityType::default()
             .with_kind(EntityKind::Platform)
-            .with_domain(PlatformDomain::Air),
+            .with_platform_domain(PlatformDomain::Air),
     )(input)?;
     let (input, orientation) = ged_entity_orientation(input)?;
     let (input, fuel_status) = be_u8(input)?;
@@ -305,7 +305,7 @@ fn ged_record_9(input: &[u8]) -> IResult<&[u8], GroupEntityDescription> {
     let (input, appearance) = entity_appearance(
         EntityType::default()
             .with_kind(EntityKind::Platform)
-            .with_domain(PlatformDomain::Land),
+            .with_platform_domain(PlatformDomain::Land),
     )(input)?;
     let (input, orientation) = ged_entity_orientation(input)?;
     let (input, speed) = be_u16(input)?;

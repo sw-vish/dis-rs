@@ -46,8 +46,8 @@ use crate::enumerations::{
 };
 use crate::enumerations::{
     Country, EntityKind, ExplosiveMaterialCategories, MunitionDescriptorFuse,
-    MunitionDescriptorWarhead, PduType, PlatformDomain, ProtocolFamily, ProtocolVersion,
-    VariableRecordType,
+    MunitionDescriptorWarhead, MunitionDomain, PduType, PlatformDomain, ProtocolFamily,
+    ProtocolVersion, VariableRecordType,
 };
 use crate::event_report_r::model::EventReportR;
 use crate::fixed_parameters::{NO_APPLIC, NO_ENTITY, NO_SITE};
@@ -72,7 +72,7 @@ use crate::underwater_acoustic::model::UnderwaterAcoustic;
 use crate::DisError;
 #[cfg(feature = "serde")]
 use serde::{Deserialize, Serialize};
-use std::fmt::Display;
+use std::fmt::{Display, Formatter};
 use std::str::FromStr;
 
 pub use crate::v7::model::PduStatus;
@@ -1053,6 +1053,46 @@ impl Orientation {
         self
     }
 }
+#[derive(Copy, Clone, Debug, PartialEq, Eq, Hash)]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize, ts_rs::TS))]
+#[cfg_attr(feature = "serde", ts(export))]
+pub enum EntityDomain {
+    Platform(PlatformDomain),
+    Munition(MunitionDomain),
+}
+
+impl EntityDomain {
+    pub fn from_u8(kind: EntityKind, value: u8) -> Self {
+        match kind {
+            EntityKind::Munition => Self::Munition(MunitionDomain::from(value)),
+            _ => Self::Platform(PlatformDomain::from(value)),
+        }
+    }
+}
+
+impl From<EntityDomain> for u8 {
+    fn from(value: EntityDomain) -> Self {
+        match value {
+            EntityDomain::Platform(d) => d.into(),
+            EntityDomain::Munition(d) => d.into(),
+        }
+    }
+}
+
+impl Display for EntityDomain {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        match self {
+            EntityDomain::Platform(d) => write!(f, "{d}"),
+            EntityDomain::Munition(d) => write!(f, "{d}"),
+        }
+    }
+}
+
+impl Default for EntityDomain {
+    fn default() -> Self {
+        Self::Platform(PlatformDomain::default())
+    }
+}
 
 /// 6.2.30 Entity Type record
 #[derive(Copy, Clone, Debug, Default, PartialEq, Eq, Hash)]
@@ -1060,7 +1100,7 @@ impl Orientation {
 #[cfg_attr(feature = "serde", ts(export))]
 pub struct EntityType {
     pub kind: EntityKind,
-    pub domain: PlatformDomain,
+    pub domain: EntityDomain,
     pub country: Country,
     pub category: u8,
     pub subcategory: u8,
@@ -1076,8 +1116,14 @@ impl EntityType {
     }
 
     #[must_use]
-    pub fn with_domain(mut self, domain: PlatformDomain) -> Self {
-        self.domain = domain;
+    pub fn with_platform_domain(mut self, domain: PlatformDomain) -> Self {
+        self.domain = EntityDomain::Platform(domain);
+        self
+    }
+
+    #[must_use]
+    pub fn with_munition_domain(mut self, domain: MunitionDomain) -> Self {
+        self.domain = EntityDomain::Munition(domain);
         self
     }
 
@@ -1146,19 +1192,23 @@ impl FromStr for EntityType {
                 "EntityType string pattern does not contain precisely {NUM_DIGITS} digits"
             )));
         }
+
+        let kind = ss
+            .get(0)
+            .expect("Impossible - checked for correct number of digits")
+            .parse::<u8>()
+            .map_err(|_| DisError::ParseError("Invalid kind digit".to_string()))?
+            .into();
+
+        let domain_u8 = ss
+            .get(1)
+            .expect("Impossible - checked for correct number of digits")
+            .parse::<u8>()
+            .map_err(|_| DisError::ParseError("Invalid domain digit".to_string()))?;
+
         Ok(Self {
-            kind: ss
-                .get(0)
-                .expect("Impossible - checked for correct number of digits")
-                .parse::<u8>()
-                .map_err(|_| DisError::ParseError("Invalid kind digit".to_string()))?
-                .into(),
-            domain: ss
-                .get(1)
-                .expect("Impossible - checked for correct number of digits")
-                .parse::<u8>()
-                .map_err(|_| DisError::ParseError("Invalid domain digit".to_string()))?
-                .into(),
+            kind,
+            domain: EntityDomain::from_u8(kind, domain_u8),
             country: ss
                 .get(2)
                 .expect("Impossible - checked for correct number of digits")
@@ -2016,7 +2066,7 @@ mod tests {
     const ENTITY_TYPE_STR_NOT_SEVEN_DIGITS: &str = "0:1:2:3:4:5";
     const ENTITY_TYPE: EntityType = EntityType {
         kind: EntityKind::Other,
-        domain: PlatformDomain::Land,
+        domain: EntityDomain::Platform(PlatformDomain::Land),
         country: Country::Albania_ALB_,
         category: 3,
         subcategory: 4,

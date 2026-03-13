@@ -10,7 +10,7 @@ mod tests {
     use crate::common::parser::parse_pdu;
     use crate::enumerations::{
         CoupledExtensionIndicator, EntityKind, FireTypeIndicator, LvcIndicator,
-        MunitionDescriptorFuse, MunitionDescriptorWarhead, PduType,
+        MunitionDescriptorFuse, MunitionDescriptorWarhead, MunitionDomain, PduType,
     };
     use crate::fire::model::Fire;
     use crate::model::{DescriptorRecord, EntityType, MunitionDescriptor, VectorF32};
@@ -23,7 +23,9 @@ mod tests {
 
         let body = Fire::builder()
             .with_descriptor(DescriptorRecord::new_munition(
-                EntityType::default().with_kind(EntityKind::Munition),
+                EntityType::default()
+                    .with_kind(EntityKind::Munition)
+                    .with_munition_domain(MunitionDomain::Other),
                 MunitionDescriptor::default()
                     .with_warhead(MunitionDescriptorWarhead::Blank)
                     .with_fuse(MunitionDescriptorFuse::Contact_Nose_1960)
@@ -103,7 +105,9 @@ mod tests {
 
         let body = Fire::builder()
             .with_descriptor(DescriptorRecord::new_munition(
-                EntityType::default().with_kind(EntityKind::Munition),
+                EntityType::default()
+                    .with_kind(EntityKind::Munition)
+                    .with_munition_domain(MunitionDomain::Other),
                 MunitionDescriptor::default()
                     .with_warhead(MunitionDescriptorWarhead::Blank)
                     .with_fuse(MunitionDescriptorFuse::Contact_Nose_1960)

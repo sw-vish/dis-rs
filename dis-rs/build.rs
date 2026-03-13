@@ -22,13 +22,14 @@ const SISO_REF_FILE: &str = "./enumerations/SISO-REF-010.xml";
 ///
 /// Finally, some enums have variants that result in empty names (`""`) or duplicate names (such as 'Emitter Name').
 /// The bool flag will append `"_value"` to the name of the variant to make it unique
-const ENUM_UIDS: [(usize, Option<&str>, Option<usize>, bool); 152] = [
+const ENUM_UIDS: [(usize, Option<&str>, Option<usize>, bool); 153] = [
     (3, Some("ProtocolVersion"), None, false), // Protocol Version
     (4, Some("PduType"), None, false),         // PDU Type
     (5, Some("ProtocolFamily"), None, false),  // PDU Family
     (6, Some("ForceId"), None, false),         // Force Id
     (7, None, None, false),                    // Entity Kind
     (8, None, None, false),                    // Domain
+    (14, None, None, false),                   // Munition Domain
     // 9-28 // (Sub-)Categories
     (29, None, None, false), // Country
     // 30 // Entity Types records
@@ -760,8 +761,8 @@ mod extraction {
 
 mod generation {
     use crate::{
-        format_field_name, format_name, format_name_postfix, Bitfield, BitfieldItem, Enum,
-        EnumItem, GenerationItem, Ident, Literal, TokenStream,
+        format_field_name, format_name, format_name_postfix, Bitfield, BitfieldItem, Enum, EnumItem, GenerationItem,
+        Ident, Literal, TokenStream,
     };
     use quote::{format_ident, quote};
 

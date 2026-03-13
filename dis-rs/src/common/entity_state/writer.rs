@@ -170,6 +170,7 @@ mod tests {
         DeadReckoningAlgorithm, EntityKind, EntityMarkingCharacterSet, ForceId, PduType,
         PlatformDomain,
     };
+    use crate::model::EntityDomain;
     use bytes::BytesMut;
 
     #[test]
@@ -218,10 +219,10 @@ mod tests {
             .with_entity_id(EntityId::new(500, 900, 14))
             .with_force_id(ForceId::Friendly)
             .with_entity_type(EntityType {
-                kind: EntityKind::Platform, domain: PlatformDomain::Air, country: Country::Netherlands_NLD_, category: 50, subcategory: 4, specific: 4, extra: 0
+                kind: EntityKind::Platform, domain: EntityDomain::Platform(PlatformDomain::Air), country: Country::Netherlands_NLD_, category: 50, subcategory: 4, specific: 4, extra: 0
             })
             .with_alternative_entity_type(EntityType {
-                kind: EntityKind::Platform, domain: PlatformDomain::Air, country: Country::Netherlands_NLD_, category: 50, subcategory: 4, specific: 4, extra: 0
+                kind: EntityKind::Platform, domain: EntityDomain::Platform(PlatformDomain::Air), country: Country::Netherlands_NLD_, category: 50, subcategory: 4, specific: 4, extra: 0
             })
             .with_velocity(VectorF32 {
                 first_vector_component: 0f32, second_vector_component: 0f32, third_vector_component: 0f32
