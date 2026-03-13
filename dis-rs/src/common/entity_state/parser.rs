@@ -224,6 +224,7 @@ mod tests {
     use crate::common::model::{EntityType, PduBody};
     use crate::common::parser::{location, parse_pdu, variable_parameter};
     use crate::enumerations::*;
+    use crate::model::EntityDomain;
     use crate::v6::entity_state::parser::entity_capabilities;
     use alloc::string::String;
 
@@ -263,7 +264,7 @@ mod tests {
                 pdu.entity_type,
                 EntityType {
                     kind: EntityKind::Platform,
-                    domain: PlatformDomain::Air,
+                    domain: EntityDomain::Platform(PlatformDomain::Air),
                     country: Country::Netherlands_NLD_,
                     category: 50,
                     subcategory: 4,
@@ -381,7 +382,7 @@ mod tests {
         let input: [u8; 4] = [0x00, 0x00, 0x00, 0x00];
         let entity_type = EntityType::default()
             .with_kind(EntityKind::Platform)
-            .with_domain(PlatformDomain::Air);
+            .with_platform_domain(PlatformDomain::Air);
 
         let res = entity_appearance(entity_type)(&input);
         assert!(res.is_ok());
@@ -411,7 +412,7 @@ mod tests {
         let input: [u8; 4] = [0x00, 0x00, 0x00, 0x60];
         let entity_type = EntityType::default()
             .with_kind(EntityKind::Platform)
-            .with_domain(PlatformDomain::Air);
+            .with_platform_domain(PlatformDomain::Air);
 
         let res = entity_appearance(entity_type)(&input);
         assert!(res.is_ok());

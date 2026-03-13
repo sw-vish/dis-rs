@@ -10,7 +10,7 @@ mod tests {
     use crate::common::parser::parse_pdu;
     use crate::enumerations::{
         CoupledExtensionIndicator, EntityKind, FireTypeIndicator, LvcIndicator,
-        MunitionDescriptorFuse, MunitionDescriptorWarhead, PduType,
+        MunitionDescriptorFuse, MunitionDescriptorWarhead, MunitionDomain, PduType,
     };
     use crate::fire::model::{Fire, FireDescriptor};
     use crate::model::{EntityType, ExpendableDescriptor, MunitionDescriptor, VectorF32};

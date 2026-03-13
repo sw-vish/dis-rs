@@ -5,7 +5,7 @@ use crate::enumerations::{
     SensorEmitterCapabilities, SpacePlatformCapabilities, SubsurfacePlatformCapabilities,
     SupplyCapabilities, SurfacePlatformCapabilities,
 };
-use crate::model::EntityType;
+use crate::model::{EntityDomain, EntityType};
 
 pub(crate) mod parser;
 
@@ -18,27 +18,27 @@ pub fn entity_capabilities_from_bytes(
 ) -> EntityCapabilities {
     match (entity_type.kind, entity_type.domain) {
         (EntityKind::Other, _) => EntityCapabilities::Unspecified(0u32),
-        (EntityKind::Platform, PlatformDomain::Land) => {
+        (EntityKind::Platform, EntityDomain::Platform(PlatformDomain::Land)) => {
             EntityCapabilities::LandPlatformEntityCapabilities(LandPlatformCapabilities::from(
                 capabilities,
             ))
         }
-        (EntityKind::Platform, PlatformDomain::Air) => {
+        (EntityKind::Platform, EntityDomain::Platform(PlatformDomain::Air)) => {
             EntityCapabilities::AirPlatformEntityCapabilities(AirPlatformCapabilities::from(
                 capabilities,
             ))
         }
-        (EntityKind::Platform, PlatformDomain::Surface) => {
+        (EntityKind::Platform, EntityDomain::Platform(PlatformDomain::Surface)) => {
             EntityCapabilities::SurfacePlatformEntityCapabilities(
                 SurfacePlatformCapabilities::from(capabilities),
             )
         }
-        (EntityKind::Platform, PlatformDomain::Subsurface) => {
+        (EntityKind::Platform, EntityDomain::Platform(PlatformDomain::Subsurface)) => {
             EntityCapabilities::SubsurfacePlatformEntityCapabilities(
                 SubsurfacePlatformCapabilities::from(capabilities),
             )
         }
-        (EntityKind::Platform, PlatformDomain::Space) => {
+        (EntityKind::Platform, EntityDomain::Platform(PlatformDomain::Space)) => {
             EntityCapabilities::SpacePlatformEntityCapabilities(SpacePlatformCapabilities::from(
                 capabilities,
             ))
