@@ -17,6 +17,7 @@ compile_error!(r#"features "std" and "libm" are mutually exclusive"#);
 compile_error!(r#"feature "libm" is required when feature "std" is disabled"#);
 
 extern crate alloc;
+extern crate core;
 
 mod common;
 mod constants;

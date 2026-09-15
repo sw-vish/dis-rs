@@ -19,7 +19,7 @@ categories.workspace = true
 [features]
 default = ["std"]
 libm = ["dep:libm"]
-serde = ["dep:serde"]
+serde = ["dep:serde", "dep:ts-rs"]
 std = ["bytes/std", "nom/std", "thiserror/std", "serde?/std"]
 hotpath = ["dep:hotpath", "hotpath/hotpath", "hotpath/hotpath-alloc"]
 _test_no_instrumentation = []
@@ -37,7 +37,7 @@ hotpath = { version = "0.10.1", optional = true }
 ts-rs = { version = "11.1.0", features = ["format"], optional = true }
 
 [dev-dependencies]
-rstest.workspace = true
+rstest = "0.26.1"
 serde_json = "1.0.149"
 
 [build-dependencies]

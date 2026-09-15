@@ -43,13 +43,7 @@ use crate::constants::{
 use crate::create_entity_r::parser::create_entity_r_body;
 use crate::data_query_r::parser::data_query_r_body;
 use crate::data_r::parser::data_r_body;
-use crate::enumerations::{
-    ArticulatedPartsTypeClass, ArticulatedPartsTypeMetric, AttachedPartDetachedIndicator,
-    AttachedParts, ChangeIndicator, EntityAssociationAssociationStatus,
-    EntityAssociationGroupMemberType, EntityAssociationPhysicalAssociationType,
-    EntityAssociationPhysicalConnectionType, SeparationPreEntityIndicator,
-    SeparationReasonForSeparation, VariableParameterRecordType,
-};
+use crate::enumerations::{ArticulatedPartsTypeClass, ArticulatedPartsTypeMetric, AttachedPartDetachedIndicator, AttachedParts, ChangeIndicator, EntityAssociationAssociationStatus, EntityAssociationGroupMemberType, EntityAssociationPhysicalAssociationType, EntityAssociationPhysicalConnectionType, MunitionDomain, SeparationPreEntityIndicator, SeparationReasonForSeparation, VariableParameterRecordType};
 use crate::enumerations::{
     Country, EntityKind, ExplosiveMaterialCategories, MunitionDescriptorFuse,
     MunitionDescriptorWarhead, PduType, PlatformDomain, ProtocolFamily, ProtocolVersion,
@@ -85,7 +79,7 @@ use nom::bytes::complete::take;
 use nom::combinator::peek;
 use nom::error::ErrorKind::Eof;
 use nom::multi::{count, many1};
-use nom::number::complete::{be_f32, be_f64, be_i32, be_u8, be_u16, be_u32, be_u64};
+use nom::number::complete::{be_f32, be_f64, be_i32, be_u16, be_u32, be_u64, be_u8};
 use nom::{Err, Parser};
 
 pub(crate) fn parse_multiple_pdu(input: &[u8]) -> Result<Vec<Pdu>, DisError> {

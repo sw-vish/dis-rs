@@ -66,7 +66,8 @@ impl Interaction for Fire {
 
 /// 6.2.19 Fire Descriptor record
 #[derive(Clone, Debug, PartialEq)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize, ts_rs::TS))]
+#[cfg_attr(feature = "serde", ts(export))]
 pub enum FireDescriptor {
     #[cfg_attr(feature = "serde", serde(rename = "munition"))]
     Munition(MunitionDescriptor),

@@ -19,6 +19,8 @@ const MAX_NANOS: u64 = 3_599_999_998_324; // TODO: NANOS_PER_HOUR - (NANOS_PER_T
 ///
 /// Time is represented as [`TimeUnits`] elapsed since the beginning of the current hour in the selected time reference.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+#[cfg_attr(feature = "serde", derive(ts_rs::TS))]
+#[cfg_attr(feature = "serde", ts(export, type = "number"))]
 pub enum Timestamp {
     /// Time is *relative* to the simulation application issuing the *PDU*.
     ///
@@ -527,13 +529,19 @@ mod tests {
 
     #[rstest]
     #[case(Timestamp::Relative(TimeUnits::ZERO), Duration::ZERO)]
-    #[case(Timestamp::Relative(TimeUnits::new(TIME_UNITS_PER_HOUR / 2).unwrap()), Duration::from_mins(30))]
+    #[case(
+        Timestamp::Relative(TimeUnits::new(TIME_UNITS_PER_HOUR / 2).unwrap()),
+        Duration::from_mins(30)
+    )]
     #[case(
         Timestamp::Relative(TimeUnits::MAX),
         Duration::from_nanos(3_599_999_998_324)
     )]
     #[case(Timestamp::Absolute(TimeUnits::ZERO), Duration::ZERO)]
-    #[case(Timestamp::Absolute(TimeUnits::new(TIME_UNITS_PER_HOUR / 2).unwrap()), Duration::from_mins(30))]
+    #[case(
+        Timestamp::Absolute(TimeUnits::new(TIME_UNITS_PER_HOUR / 2).unwrap()),
+        Duration::from_mins(30)
+    )]
     #[case(
         Timestamp::Absolute(TimeUnits::MAX),
         Duration::from_nanos(3_599_999_998_324)
@@ -580,16 +588,20 @@ mod tests {
 
     #[rstest]
     #[case(Timestamp::Relative(TimeUnits::ZERO), 0, true)]
-    #[case(Timestamp::Relative(TimeUnits::new(TIME_UNITS_PER_HOUR / 2).unwrap()), 2_147_483_648, true)]
+    #[case(Timestamp::Relative(TimeUnits::new(TIME_UNITS_PER_HOUR / 2).unwrap()
+    ), 2_147_483_648, true)]
     #[case(Timestamp::Relative(TimeUnits::MAX), 4_294_967_294, true)]
     #[case(Timestamp::Relative(TimeUnits::ZERO), 1, false)]
-    #[case(Timestamp::Relative(TimeUnits::new(TIME_UNITS_PER_HOUR / 2).unwrap()), 2_147_483_649, false)]
+    #[case(Timestamp::Relative(TimeUnits::new(TIME_UNITS_PER_HOUR / 2).unwrap()
+    ), 2_147_483_649, false)]
     #[case(Timestamp::Relative(TimeUnits::MAX), 4_294_967_295, false)]
     #[case(Timestamp::Absolute(TimeUnits::ZERO), 1, true)]
-    #[case(Timestamp::Absolute(TimeUnits::new(TIME_UNITS_PER_HOUR / 2).unwrap()), 2_147_483_649, true)]
+    #[case(Timestamp::Absolute(TimeUnits::new(TIME_UNITS_PER_HOUR / 2).unwrap()
+    ), 2_147_483_649, true)]
     #[case(Timestamp::Absolute(TimeUnits::MAX), 4_294_967_295, true)]
     #[case(Timestamp::Absolute(TimeUnits::ZERO), 0, false)]
-    #[case(Timestamp::Absolute(TimeUnits::new(TIME_UNITS_PER_HOUR / 2).unwrap()), 2_147_483_648, false)]
+    #[case(Timestamp::Absolute(TimeUnits::new(TIME_UNITS_PER_HOUR / 2).unwrap()
+    ), 2_147_483_648, false)]
     #[case(Timestamp::Absolute(TimeUnits::MAX), 4_294_967_294, false)]
     fn timestamp_partial_eq(
         #[case] timestamp: Timestamp,
@@ -602,18 +614,36 @@ mod tests {
 
     #[rstest]
     #[case(Timestamp::Relative(TimeUnits::ZERO), 0, Ordering::Equal)]
-    #[case(Timestamp::Relative(TimeUnits::new(TIME_UNITS_PER_HOUR / 2).unwrap()), 2_147_483_648, Ordering::Equal)]
+    #[case(
+        Timestamp::Relative(TimeUnits::new(TIME_UNITS_PER_HOUR / 2).unwrap()), 2_147_483_648,
+        Ordering::Equal
+    )]
     #[case(Timestamp::Relative(TimeUnits::MAX), 4_294_967_294, Ordering::Equal)]
     #[case(Timestamp::Relative(TimeUnits::ZERO), 4_294_967_294, Ordering::Less)]
-    #[case(Timestamp::Relative(TimeUnits::new(TIME_UNITS_PER_HOUR / 2).unwrap()), 2_147_483_647, Ordering::Greater)]
-    #[case(Timestamp::Relative(TimeUnits::new(TIME_UNITS_PER_HOUR / 2).unwrap()), 2_147_483_649, Ordering::Less)]
+    #[case(
+        Timestamp::Relative(TimeUnits::new(TIME_UNITS_PER_HOUR / 2).unwrap()), 2_147_483_647,
+        Ordering::Greater
+    )]
+    #[case(
+        Timestamp::Relative(TimeUnits::new(TIME_UNITS_PER_HOUR / 2).unwrap()), 2_147_483_649,
+        Ordering::Less
+    )]
     #[case(Timestamp::Relative(TimeUnits::MAX), 0, Ordering::Greater)]
     #[case(Timestamp::Absolute(TimeUnits::ZERO), 1, Ordering::Equal)]
-    #[case(Timestamp::Absolute(TimeUnits::new(TIME_UNITS_PER_HOUR / 2).unwrap()), 2_147_483_649, Ordering::Equal)]
+    #[case(
+        Timestamp::Absolute(TimeUnits::new(TIME_UNITS_PER_HOUR / 2).unwrap()), 2_147_483_649,
+        Ordering::Equal
+    )]
     #[case(Timestamp::Absolute(TimeUnits::MAX), 4_294_967_295, Ordering::Equal)]
     #[case(Timestamp::Absolute(TimeUnits::ZERO), 4_294_967_295, Ordering::Less)]
-    #[case(Timestamp::Absolute(TimeUnits::new(TIME_UNITS_PER_HOUR / 2).unwrap()), 2_147_483_648, Ordering::Greater)]
-    #[case(Timestamp::Absolute(TimeUnits::new(TIME_UNITS_PER_HOUR / 2).unwrap()), 2_147_483_650, Ordering::Less)]
+    #[case(
+        Timestamp::Absolute(TimeUnits::new(TIME_UNITS_PER_HOUR / 2).unwrap()), 2_147_483_648,
+        Ordering::Greater
+    )]
+    #[case(
+        Timestamp::Absolute(TimeUnits::new(TIME_UNITS_PER_HOUR / 2).unwrap()), 2_147_483_650,
+        Ordering::Less
+    )]
     #[case(Timestamp::Absolute(TimeUnits::MAX), 0, Ordering::Greater)]
     fn timestamp_partial_ord(
         #[case] timestamp: Timestamp,
@@ -630,20 +660,32 @@ mod tests {
     }
 
     #[rstest]
-    #[case(Timestamp::Relative(TimeUnits::ZERO), 1, Timestamp::Relative(TimeUnits::new(1).unwrap()))]
+    #[case(
+        Timestamp::Relative(TimeUnits::ZERO), 1,
+        Timestamp::Relative(TimeUnits::new(1).unwrap())
+    )]
     #[case(
         Timestamp::Relative(TimeUnits::ZERO),
         2_147_483_648,
         Timestamp::Relative(TimeUnits::MAX)
     )]
-    #[case(Timestamp::Relative(TimeUnits::new(2_147_483_646).unwrap()), 4_294_967_293, Timestamp::Relative(TimeUnits::MAX))]
-    #[case(Timestamp::Absolute(TimeUnits::ZERO), 2, Timestamp::Absolute(TimeUnits::new(1).unwrap()))]
+    #[case(
+        Timestamp::Relative(TimeUnits::new(2_147_483_646).unwrap()), 4_294_967_293,
+        Timestamp::Relative(TimeUnits::MAX)
+    )]
+    #[case(
+        Timestamp::Absolute(TimeUnits::ZERO), 2,
+        Timestamp::Absolute(TimeUnits::new(1).unwrap())
+    )]
     #[case(
         Timestamp::Absolute(TimeUnits::ZERO),
         2_147_483_648,
         Timestamp::Absolute(TimeUnits::MAX)
     )]
-    #[case(Timestamp::Absolute(TimeUnits::new(2_147_483_646).unwrap()), 4_294_967_294, Timestamp::Absolute(TimeUnits::MAX))]
+    #[case(
+        Timestamp::Absolute(TimeUnits::new(2_147_483_646).unwrap()), 4_294_967_294,
+        Timestamp::Absolute(TimeUnits::MAX)
+    )]
     fn timestamp_partial_ord_transitive(
         #[case] a: Timestamp,
         #[case] b: u32,

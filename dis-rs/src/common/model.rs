@@ -1082,7 +1082,7 @@ impl From<EntityDomain> for u8 {
 }
 
 impl Display for EntityDomain {
-    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+    fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
             EntityDomain::Platform(d) => write!(f, "{d}"),
             EntityDomain::Munition(d) => write!(f, "{d}"),
@@ -1303,7 +1303,8 @@ impl MunitionDescriptor {
 
 /// 6.2.19.3 Explosion Descriptor record
 #[derive(Clone, Default, Debug, PartialEq)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize, ts_rs::TS))]
+#[cfg_attr(feature = "serde", ts(export))]
 pub struct ExplosionDescriptor {
     pub entity_type: EntityType,
     pub explosive_material: ExplosiveMaterialCategories,
@@ -1335,7 +1336,8 @@ impl ExplosionDescriptor {
 
 /// 6.2.19.4 Expendable Descriptor record
 #[derive(Clone, Default, Debug, PartialEq)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize, ts_rs::TS))]
+#[cfg_attr(feature = "serde", ts(export))]
 pub struct ExpendableDescriptor {
     pub entity_type: EntityType,
 }
